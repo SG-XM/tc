@@ -61,16 +61,16 @@
                                     <mainClass>twt.service.tianchi2.RunMain
                                     </mainClass>
                                 </transformer>
-                                <filters>
-                                    <filter>
-                                        <artifact>*:*</artifact>
-                                        <excludes>
-                                            <exclude>META-INF/*.SF</exclude>
-                                            <exclude>META-INF/*.DSA</exclude>
-                                            <exclude>META-INF/*.RSA</exclude>
-                                        </excludes>
-                                    </filter>
-                                </filters>
+<!--                                <filters>-->
+<!--                                    <filter>-->
+<!--                                        <artifact>*:*</artifact>-->
+<!--                                        <excludes>-->
+<!--                                            <exclude>META-INF/*.SF</exclude>-->
+<!--                                            <exclude>META-INF/*.DSA</exclude>-->
+<!--                                            <exclude>META-INF/*.RSA</exclude>-->
+<!--                                        </excludes>-->
+<!--                                    </filter>-->
+<!--                                </filters>-->
                             </transformers>
                         </configuration>
                     </execution>

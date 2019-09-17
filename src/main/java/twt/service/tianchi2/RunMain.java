@@ -9,7 +9,7 @@ import org.tensorflow.Session;
 public class RunMain {
     public static SavedModelBundle bundle;
     public static String[] classIndex = new String[100];
-
+    public static Session sess;
     public static void main(String[] args) throws Exception {
         readIndex();
         loadModel();
@@ -26,6 +26,7 @@ public class RunMain {
     public static void loadModel() {
         String modelpath = System.getenv("IMAGE_MODEL_PATH");
         bundle = SavedModelBundle.load(modelpath, "serve");
+        sess = bundle.session();
     }
 
     public static Session getSession() {

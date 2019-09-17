@@ -18,9 +18,14 @@ public class MyFlatMap implements FlatMapFunction<ImageData, IdLabel> {
 
     public void flatMap(ImageData value, Collector<IdLabel> out) throws Exception {
         IdLabel idLabel = new IdLabel();
+        if(value.getId()!=null){
         idLabel.setId(value.getId());
+        }else{
+            System.out.println("null");
+            idLabel.setId(String.valueOf(System.currentTimeMillis()));
+        }
         String modelpath = System.getenv("IMAGE_MODEL_PATH");
-        System.out.println(modelpath + "/saved_model.pb");
+//        System.out.println(modelpath + "/saved_model.pb");
 //        try (SavedModelBundle bundle = SavedModelBundle.load(modelpath, "serve")) {
 //            graph.importGraphDef(Files.readAllBytes(Paths.get(
 //                    modelpath+"/saved_model.pb"
@@ -29,7 +34,7 @@ public class MyFlatMap implements FlatMapFunction<ImageData, IdLabel> {
 //            graph.importGraphDef(graphBytes);
 
 //            graph
-            try (Session sess = RunMain.getSession()) {
+            try (Session sess = RunMain.sess) {
                 ByteArrayInputStream in = new ByteArrayInputStream(value.getImage());
                 BufferedImage image = ImageIO.read(in);
 
@@ -74,7 +79,12 @@ public class MyFlatMap implements FlatMapFunction<ImageData, IdLabel> {
                     }
 //                    System.out.println(RunMain.classIndex[index]);
 //                    System.out.println("res"+index);
-                    idLabel.setLabel(RunMain.classIndex[index]);
+                    if(RunMain.classIndex[index]!=null){
+                        idLabel.setLabel(RunMain.classIndex[index]);
+                    }else{
+                        idLabel.setLabel(String.valueOf(System.currentTimeMillis()));
+                        System.out.println("null");
+                    }
                     out.collect(idLabel);
                 }
             } catch (Exception e) {
